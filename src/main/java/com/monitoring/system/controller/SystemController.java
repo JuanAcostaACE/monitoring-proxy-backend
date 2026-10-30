@@ -32,6 +32,11 @@ public class SystemController {
         this.auditLogRepository = auditLogRepository;
     }
 
+    @GetMapping("/health")
+    public ResponseEntity<Map<String, String>> healthCheck() {
+        return ResponseEntity.ok(Map.of("status", "UP"));
+    }
+
     @PostMapping("/inventory/{operation}")
     public ResponseEntity<?> callInventory(@PathVariable String operation, @RequestBody(required = false) Map<String, Object> payload) {
         return handleProxiedCall(inventoryProxy, operation, payload);
